@@ -329,13 +329,36 @@
             </button>
         </div>
 
-        <div id="mobile-menu" class="fixed inset-0 bg-jungle-900 z-40 transform translate-x-full transition-transform duration-500 flex flex-col items-center justify-center space-y-8 md:hidden">
-            <a href="#experiencia" class="text-3xl font-serif text-white hover:text-white/70 mobile-link">Experiencia</a>
-            <a href="#habitaciones" class="text-3xl font-serif text-white hover:text-white/70 mobile-link">Habitaciones</a>
-            <a href="#galeria" class="text-3xl font-serif text-white hover:text-white/70 mobile-link">Galería</a>
-            <a href="#testimonios" class="text-3xl font-serif text-white hover:text-white/70 mobile-link">Testimonios</a>
-            <a href="#faq" class="text-3xl font-serif text-white hover:text-white/70 mobile-link">FAQ</a>
-            <a href="https://wa.me/51919662011?text=Hola%2C%20me%20gust%C3%B3%20la%20p%C3%A1gina%20de%20Amazonia%20Eco%20Stay%2C%20quiero%20que%20programes%20una%20web%20asi%20para%20mi%20negocio..." class="px-8 py-4 bg-white text-jungle-900 rounded-full font-bold uppercase tracking-widest text-sm mobile-link">Reservar por WhatsApp</a>
+        <div id="mobile-menu" class="fixed inset-0 bg-gradient-to-b from-jungle-950 via-jungle-900 to-jungle-950 z-40 transform translate-x-full transition-all duration-500 ease-in-out flex flex-col items-center justify-center md:hidden">
+            <!-- Close Button -->
+            <button id="mobile-menu-close" class="absolute top-6 right-6 text-white/60 hover:text-white transition-colors z-50">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <!-- Logo -->
+            <div class="absolute top-6 left-6">
+                <span class="text-2xl font-serif font-bold text-white tracking-wide">
+                    Amazonia<span class="text-white/60">EcoStay</span>
+                </span>
+            </div>
+            
+            <!-- Menu Links -->
+            <nav class="flex flex-col items-center space-y-8 mb-12">
+                <a href="#experiencia" class="text-3xl font-serif text-white/90 hover:text-white transition-all duration-300 mobile-link transform hover:scale-105">Experiencia</a>
+                <a href="#habitaciones" class="text-3xl font-serif text-white/90 hover:text-white transition-all duration-300 mobile-link transform hover:scale-105">Habitaciones</a>
+                <a href="#galeria" class="text-3xl font-serif text-white/90 hover:text-white transition-all duration-300 mobile-link transform hover:scale-105">Galería</a>
+                <a href="#testimonios" class="text-3xl font-serif text-white/90 hover:text-white transition-all duration-300 mobile-link transform hover:scale-105">Testimonios</a>
+                <a href="#faq" class="text-3xl font-serif text-white/90 hover:text-white transition-all duration-300 mobile-link transform hover:scale-105">FAQ</a>
+            </nav>
+            
+            <!-- CTA Button -->
+            <a href="https://wa.me/51919662011?text=Hola%2C%20me%20gust%C3%B3%20la%20p%C3%A1gina%20de%20Amazonia%20Eco%20Stay%2C%20quiero%20que%20programes%20una%20web%20asi%20para%20mi%20negocio..." 
+               class="px-10 py-4 bg-white text-jungle-900 rounded-full font-bold uppercase tracking-widest text-xs mobile-link hover:bg-sand-200 transition-all transform hover:scale-105 shadow-lg btn-glow">
+                Reservar por WhatsApp
+            </a>
+            
+            <!-- Decorative Elements -->
+            <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent opacity-50"></div>
         </div>
     </nav>
 
@@ -896,18 +919,31 @@
         // Mobile Menu Toggle
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
         const mobileLinks = document.querySelectorAll('.mobile-link');
 
-        mobileBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('translate-x-full');
-            document.body.classList.toggle('overflow-hidden');
-        });
+        function openMobileMenu() {
+            mobileMenu.classList.remove('translate-x-full');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.add('translate-x-full');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        mobileBtn.addEventListener('click', openMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
 
         mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('translate-x-full');
-                document.body.classList.remove('overflow-hidden');
-            });
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeMobileMenu();
+            }
         });
 
         // FAQ Toggle
